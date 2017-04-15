@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Stock Hawk</string>
+    <string name="button_to_add_new_stock" translatable="false">زر لإضافة الأسهم الجديدة!</string>
+    <string name="change_button_units" translatable="false">وحدات تغيير الزر</string>
+    <string name="dialog_add" translatable="false">إضافة</string>
+    <string name="dialog_cancel" translatable="false">إلغاء</string>
+    <string name="dialog_hint" translatable="false">الرمز (مثل غوغ)</string>
+    <string name="dialog_title" translatable="false">إضافة سهم</string>
+    <string name="error_no_network" translatable="false">لا اتصال الشبكة! سيتم تحميل مؤشر الأسهم عندما تكون الشبكة متاحة</string>
+    <string name="error_no_stocks" translatable="false">لم يتم إضافة أي أسهم! ضرب زر العمل العائمة لإضافة واحد.</string>
+    <string name="toast_no_connectivity" translatable="false">سيتم تحديث عندما الشبكة المتاحة.</string>
+    <string name="toast_stock_added_no_connectivity" translatable="false">تمت إضافة الرمز٪ s. سيتم تحديث عندما الشبكة المتاحة.</string>
+</resources>
