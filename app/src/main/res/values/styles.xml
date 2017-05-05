@@ -20,4 +20,22 @@
         <item name="android:textSize">25sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="StockWidgetSymbolTextStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="StockWidgetPriceTextStyle">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/stock_widget_text_size</item>
+    </style>
+
+    <style name="StockWidgetPercentTextStyle">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/stock_widget_text_size</item>
+    </style>
 </resources>

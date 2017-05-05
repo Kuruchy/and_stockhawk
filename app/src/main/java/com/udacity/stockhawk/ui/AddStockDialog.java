@@ -20,7 +20,10 @@ import com.udacity.stockhawk.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * Add Stock Dialog Class.
+ *
+ */
 public class AddStockDialog extends DialogFragment {
 
     @SuppressWarnings("WeakerAccess")

@@ -4,9 +4,20 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorPrimaryLight">#C5CAE9</color>
     <color name="colorAccent">#03A9F4</color>
-    <color name="colorPrimaryTrans">#823f51b5</color>
+    <color name="colorPrimaryTrans">#643f51b5</color>
 
-    <color name="material_red_700">#D50000</color>
-    <color name="material_green_700">#00C853</color>
+    <color name="colorWidgetBackgroundTrans">#8d000000</color>
+
+
+    <color name="material_red">#ce2626</color>
+    <color name="material_green">#18a367</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#cccccc</color>
+    <color name="grey_700">#646464</color>
+    <color name="black">#000000</color>
+
+    <!-- the activated state color -->
+    <color name="activated">#E0E0E0</color>
 
 </resources>

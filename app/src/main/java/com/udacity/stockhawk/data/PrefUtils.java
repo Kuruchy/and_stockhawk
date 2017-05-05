@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Preference Utils Class.
+ *
+ */
 public final class PrefUtils {
 
     private PrefUtils() {

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.StockPref;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
@@ -29,7 +30,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
+/**
+ * Main Activity Class.
+ *
+ * Creates the Main view, a list of stocks.
+ * Uses {@link "github.com/jakewharton/butterknife/"} to simplify joining view elements.
+ */
+public class MainActivity extends AppCompatActivity implements
+        LoaderManager.LoaderCallbacks<Cursor>,
         SwipeRefreshLayout.OnRefreshListener,
         StockAdapter.StockAdapterOnClickHandler {
 
@@ -46,14 +54,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private StockAdapter adapter;
 
     @Override
-    public void onClick(String symbol) {
+    public void onClick(StockPref stock) {
 
         Context context = this;
         Class destinationClass = DetailActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-        intentToStartDetailActivity.putExtra("stock_name", symbol);
+        intentToStartDetailActivity.putExtra("stock", stock);
         startActivity(intentToStartDetailActivity);
-        Timber.d("Symbol clicked: %s", symbol);
+        Timber.d("Symbol clicked: %s", stock.getStockSymbol());
+
     }
 
     @Override
@@ -129,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
             } else {
-                String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
+                String message = getString(R.string.toast_stock_added_no_connectivity) + symbol;
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
@@ -153,14 +162,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (data.getCount() != 0) {
             error.setVisibility(View.GONE);
         }
-        adapter.setCursor(data);
+        adapter.setmCursor(data);
     }
 
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         swipeRefreshLayout.setRefreshing(false);
-        adapter.setCursor(null);
+        adapter.setmCursor(null);
     }
 
 

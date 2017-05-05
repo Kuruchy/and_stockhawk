@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Stock Hawk</string>
 
+    <string name="title_activity_detail">Detail</string>
+
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
     <string name="pref_stocks_key" translatable="false">stocks</string>
@@ -31,7 +33,16 @@
 
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
-    <string name="change_button_units">Button to change from Dollars to percentage</string>
-    <string name="button_to_add_new_stock">Button to add new stock</string>
+    <string name="change_button_units">Change from Dollars to percentage</string>
+    <string name="button_to_add_new_stock">Add new stock</string>
+
+    <!-- Strings related to Widgets -->
+    <string name="title_widget_detail">Stockhawk Details</string>
+
+    <!-- Empty StockPref Database -->
+    <string name="empty_stock_list">No Stock Information Available</string>
+    <string name="reset_chart">Reset chart</string>
+    <string name="stock_evolution_chart">Stock Evolution Chart</string>
+    <string name="chart_preview">Chart Preview</string>
 
 </resources>

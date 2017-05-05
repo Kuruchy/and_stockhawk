@@ -11,4 +11,5 @@
     <string name="error_no_stocks" translatable="false">لم يتم إضافة أي أسهم! ضرب زر العمل العائمة لإضافة واحد.</string>
     <string name="toast_no_connectivity" translatable="false">سيتم تحديث عندما الشبكة المتاحة.</string>
     <string name="toast_stock_added_no_connectivity" translatable="false">تمت إضافة الرمز٪ s. سيتم تحديث عندما الشبكة المتاحة.</string>
+    <string name="reset_chart">Reset chart</string>
 </resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout for weather forecast list item for future day (not today) -->
+<!-- Make the background of our selector a non-transparent color -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:baselineAligned="false"
+            android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+            android:paddingRight="@dimen/abc_list_item_padding_horizontal_material"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/widget_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/StockWidgetSymbolTextStyle"
+                    tools:text="AAAAA"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/widget_stock_price"
+                    android:layout_width="@dimen/forecast_widget_text_width"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/stock_temperature_space"
+                    android:textAppearance="@style/StockWidgetPriceTextStyle"
+                    tools:text="10.55$"/>
+
+                <TextView
+                    android:id="@+id/widget_stock_percent_change"
+                    android:layout_width="@dimen/forecast_widget_text_width"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textAppearance="@style/StockWidgetPercentTextStyle"
+                    tools:text="+7.45%"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+</FrameLayout>

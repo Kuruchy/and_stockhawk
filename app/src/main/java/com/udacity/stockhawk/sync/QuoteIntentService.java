@@ -5,7 +5,10 @@ import android.content.Intent;
 
 import timber.log.Timber;
 
-
+/**
+ * Quote Intent Service Class.
+ *
+ */
 public class QuoteIntentService extends IntentService {
 
     public QuoteIntentService() {

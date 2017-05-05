@@ -6,6 +6,10 @@ import android.content.Intent;
 
 import timber.log.Timber;
 
+/**
+ * Quote Job Service Class.
+ *
+ */
 public class QuoteJobService extends JobService {
 
 

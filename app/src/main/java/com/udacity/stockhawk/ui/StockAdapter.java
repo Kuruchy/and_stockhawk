@@ -10,47 +10,52 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.StockPref;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
+import com.udacity.stockhawk.utils.Utility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Stock Adapter Class extends RecyclerView.
+ *
+ */
 class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
     private final Context context;
-    private final DecimalFormat dollarFormatWithPlus;
-    private final DecimalFormat dollarFormat;
-    private final DecimalFormat percentageFormat;
-    private Cursor cursor;
+    private Cursor mCursor;
     private final StockAdapterOnClickHandler clickHandler;
+
+    private static final int VIEW_TYPE_TODAY = 0;
 
     StockAdapter(Context context, StockAdapterOnClickHandler clickHandler) {
         this.context = context;
         this.clickHandler = clickHandler;
-
-        dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-        dollarFormatWithPlus = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
-        dollarFormatWithPlus.setPositivePrefix("+$");
-        percentageFormat = (DecimalFormat) NumberFormat.getPercentInstance(Locale.getDefault());
-        percentageFormat.setMaximumFractionDigits(2);
-        percentageFormat.setMinimumFractionDigits(2);
-        percentageFormat.setPositivePrefix("+");
     }
 
-    void setCursor(Cursor cursor) {
-        this.cursor = cursor;
+    void setmCursor(Cursor mCursor) {
+        this.mCursor = mCursor;
         notifyDataSetChanged();
     }
 
     String getSymbolAtPosition(int position) {
 
-        cursor.moveToPosition(position);
-        return cursor.getString(Contract.Quote.POSITION_SYMBOL);
+        mCursor.moveToPosition(position);
+        return mCursor.getString(Contract.Quote.POSITION_SYMBOL);
+    }
+
+    String getPerChangeAtPosition(int position) {
+
+        mCursor.moveToPosition(position);
+        return mCursor.getString(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+    }
+
+    String getHistoryAtPosition(int position) {
+
+        mCursor.moveToPosition(position);
+        return mCursor.getString(Contract.Quote.POSITION_HISTORY);
     }
 
     @Override
@@ -64,15 +69,23 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     @Override
     public void onBindViewHolder(StockViewHolder holder, int position) {
 
-        cursor.moveToPosition(position);
+        boolean useLongToday;
+        mCursor.moveToPosition(position);
+
+        switch (getItemViewType(position)) {
+            case VIEW_TYPE_TODAY:
+                useLongToday = true;
+                break;
+            default:
+                useLongToday = false;
+        }
+
+        holder.symbol.setText(Utility.createSymbol(mCursor.getString(Contract.Quote.POSITION_SYMBOL), useLongToday));
+        holder.price.setText(Utility.createPrice(mCursor.getFloat(Contract.Quote.POSITION_PRICE), useLongToday));
 
 
-        holder.symbol.setText(cursor.getString(Contract.Quote.POSITION_SYMBOL));
-        holder.price.setText(dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
-
-
-        float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
-        float percentageChange = cursor.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+        float rawAbsoluteChange = mCursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
+        float percentageChange = mCursor.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
 
         if (rawAbsoluteChange > 0) {
             holder.change.setBackgroundResource(R.drawable.percent_change_pill_green);
@@ -80,8 +93,8 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
             holder.change.setBackgroundResource(R.drawable.percent_change_pill_red);
         }
 
-        String change = dollarFormatWithPlus.format(rawAbsoluteChange);
-        String percentage = percentageFormat.format(percentageChange / 100);
+        String change = Utility.createAbsolute(rawAbsoluteChange, useLongToday);
+        String percentage = Utility.createPercent(percentageChange, useLongToday);
 
         if (PrefUtils.getDisplayMode(context)
                 .equals(context.getString(R.string.pref_display_mode_absolute_key))) {
@@ -96,15 +109,15 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     @Override
     public int getItemCount() {
         int count = 0;
-        if (cursor != null) {
-            count = cursor.getCount();
+        if (mCursor != null) {
+            count = mCursor.getCount();
         }
         return count;
     }
 
 
     interface StockAdapterOnClickHandler {
-        void onClick(String symbol);
+        void onClick(StockPref stock);
     }
 
     class StockViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -127,12 +140,24 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            cursor.moveToPosition(adapterPosition);
-            int symbolColumn = cursor.getColumnIndex(Contract.Quote.COLUMN_SYMBOL);
-            clickHandler.onClick(cursor.getString(symbolColumn));
+            mCursor.moveToPosition(adapterPosition);
+            StockPref stock = createStockFromCursor(mCursor);
+            clickHandler.onClick(stock);
 
         }
 
+        private StockPref createStockFromCursor(Cursor mCursor) {
+            return new StockPref(mCursor);
+        }
+    }
 
+    /**
+     * Method to swap the mCursor
+     *
+     * @param newCursor the new mCursor to use as CardAdapter's data source
+     */
+    void swapCursor(Cursor newCursor) {
+        mCursor = newCursor;
+        notifyDataSetChanged();
     }
 }
