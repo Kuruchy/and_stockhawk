@@ -1,5 +1,7 @@
 package com.udacity.stockhawk.ui;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,6 +27,7 @@ import com.udacity.stockhawk.StockPref;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
+import com.udacity.stockhawk.widget.DetailWidgetProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         }).attachToRecyclerView(stockRecyclerView);
 
-
+        getSupportLoaderManager().initLoader(STOCK_LOADER, null, this);
     }
 
     private boolean networkUp() {
@@ -163,6 +166,14 @@ public class MainActivity extends AppCompatActivity implements
             error.setVisibility(View.GONE);
         }
         adapter.setmCursor(data);
+
+        ComponentName name = new ComponentName(this, DetailWidgetProvider.class);
+        int [] ids = AppWidgetManager.getInstance(this).getAppWidgetIds(name);
+
+        Intent intent = new Intent(this, DetailWidgetProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
 
