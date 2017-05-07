@@ -15,7 +15,9 @@
             android:minHeight="?android:attr/listPreferredItemHeight"
             android:baselineAligned="false"
             android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+            android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
             android:paddingRight="@dimen/abc_list_item_padding_horizontal_material"
+            android:paddingEnd="@dimen/abc_list_item_padding_horizontal_material"
             android:orientation="horizontal">
 
             <LinearLayout
